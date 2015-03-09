@@ -1,5 +1,7 @@
 public class Test{
 	public static void main(String [] args){
-		System.out.println("test");
+		
+		CsvReader reader = new CsvReader("data/DfTRoadSafety_Accidents_2005.csv");
+		reader.read();
 	}
 }
