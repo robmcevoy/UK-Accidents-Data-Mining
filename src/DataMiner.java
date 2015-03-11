@@ -3,18 +3,19 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 
-public class CsvReader {
-	
+public class DataMiner {
+	/*
 	private String csvUrl;
 	private BufferedReader reader;
 	private final String CSV_SPLIT=",";
-	private ArrayList<Row> set;
+	private TreeBuilder builder;
 	
-	public CsvReader(String csvUrl){
+	public DataMiner(String csvUrl){
 		this.csvUrl = csvUrl;
-		this.set = new ArrayList<Row>();
+		this.builder = new TreeBuilder();
 	}
 	
+	//read csv file and create an arraylist of rows
 	public void readFile(){
 		String line = "";
 		try{
@@ -36,8 +37,8 @@ public class CsvReader {
 			e.printStackTrace();
 		}
 	}
-	
-	
+		
+	// find the number of class instances in a set
 	private ArrayList<Integer> getNumClassesInstances(ArrayList<Row> set){
 		int numFirstClassInstances = 0;
 		int numSecondClassInstances = 0;
@@ -65,7 +66,7 @@ public class CsvReader {
 		return classInstances;
 	}
 	
-	
+	// calculate eNew of splitting on attribute
 	public double eNew(){
 	
 		ArrayList<ArrayList<Row>> subsets = getSubsets(this.set, this.set.get(0).getSplitAttribute());
@@ -87,48 +88,30 @@ public class CsvReader {
 		return eStart() - eNew();
 	}
 	
-	
+	// calculate eStart of current set
 	public double eStart(){
 		ArrayList<Integer> array = getNumClassesInstances(this.set);
 		return entropy(set.size(), array);
 	}
 	
-	private double entropy( int numInstances, ArrayList<Integer> arrayClassOccurances){
-		double e = 0.0;
-		for(int elementInstance: arrayClassOccurances){
-			if(elementInstance > 0){
-				e = e -elementOfE(numInstances, elementInstance);
-			}
-		}
-		return e;
-	}
-
-	private double elementOfE(int numInstances, int numClassInstances){
-			double p = (double) numClassInstances/numInstances;
-			return p * logOfBase(2, p);
-	}
-
-	private double logOfBase(int base, double num) {
-		return Math.log(num) / Math.log(base);
-	}
-	
 	// takes in a set of rows
 	// returns an array of subsets split on attribute values
 	public ArrayList<ArrayList<Row>> getSubsets(ArrayList<Row> set, Attribute attribute){	
-			ArrayList<ArrayList<Row>> subsets = new ArrayList<ArrayList<Row>>();
-			//create subsets
-			for(int i=0; i<attribute.getNumPossibleValues(); i++){
-				ArrayList<Row> subset = new ArrayList<Row>();
-				subsets.add(subset);
-			}
-			for(Row row: set){
-				int index =row.getSplitAttribute().getValueIndex(row.getSplitAttribute().getValue());
-				for(ArrayList<Row> subset: subsets){
-					if(subsets.indexOf(subset) == index){
-						subset.add(row);
-					}
+		ArrayList<ArrayList<Row>> subsets = new ArrayList<ArrayList<Row>>();
+		//create subsets
+		for(int i=0; i<attribute.getNumPossibleValues(); i++){
+			ArrayList<Row> subset = new ArrayList<Row>();
+			subsets.add(subset);
+		}
+		for(Row row: set){
+			int index =row.getSplitAttribute().getValueIndex(row.getSplitAttribute().getValue());
+			for(ArrayList<Row> subset: subsets){
+				if(subsets.indexOf(subset) == index){
+					subset.add(row);
 				}
 			}
-			return subsets;
 		}
+		return subsets;
+	}
+	*/
 }
