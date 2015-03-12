@@ -6,7 +6,7 @@ public class Row {
 	private ArrayList<Attribute> attributes;
 	
 	public Row(ArrayList<Attribute> attributes){
-		this.attributes = attributes;
+		this.attributes = new ArrayList<Attribute>(attributes);
 	}
 	
 	public void updateAttributeValues(int index, int value){
@@ -25,4 +25,5 @@ public class Row {
 		}
 		return null;
 	}
+
 }

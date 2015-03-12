@@ -51,8 +51,11 @@ public class TreeBuilder {
 		try{
 			BufferedReader reader = new BufferedReader(new FileReader(csvUrl));
 			line = reader.readLine();
+			ArrayList<Row> array = new ArrayList<Row>();
 			while((line = reader.readLine()) != null){
-				Row row = new Row(this.allAttributes);
+				
+				Row row = new Row(allAttributes);
+				//System.out.println("row before updates: " + row + " hascode: " + row.hashCode());
 				String values[] = line.split(CSV_SPLIT);
 				for(int i=0; i<values.length; i++){
 					try{
@@ -60,15 +63,15 @@ public class TreeBuilder {
 					}
 					catch(java.lang.NumberFormatException e){}
 				}
-				System.out.println("before add");
-				for(Row tmp: set){
-					System.out.println(tmp.getAttributeWithValue(accidentSeverity).getValue());
-				}
-				System.out.println();
-				set.add(row);
+				
+				System.out.println("row after updates: " + row + " hascode: " + row.hashCode());
+				System.out.println("value of row: " + row.getAttributeWithValue(accidentSeverity).getValue());
+				array.add(row);
+				
 				System.out.println("after add");
-				for(Row tmp: set){
-					System.out.println(tmp.getAttributeWithValue(accidentSeverity).getValue());
+				for(Row tmp: array){
+					System.out.println("value in set: " + tmp.getAttributeWithValue(accidentSeverity).getValue());
+					System.out.println("in set " + tmp + " hascode: " + tmp.hashCode());
 				}
 				System.out.println();
 			}
@@ -130,4 +133,5 @@ public class TreeBuilder {
 	private double logOfBase(int base, double num) {
 		return Math.log(num) / Math.log(base);
 	}
+
 }

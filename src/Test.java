@@ -9,6 +9,6 @@ public class Test{
 		
 		TreeBuilder builder = new TreeBuilder();
 		builder.readTraningSetCsv("data/small.csv");
-		System.out.println(builder.eStart());
+		//System.out.println(builder.eStart());
 	}
 }
