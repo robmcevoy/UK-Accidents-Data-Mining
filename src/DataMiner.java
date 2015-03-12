@@ -1,10 +1,20 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
+<<<<<<< HEAD:src/DataMiner.java
 public class DataMiner {
 	/*
+=======
+public class CsvReader {
+	
+	private final int NUM_CLASSES=3;
+	private final int FIRST_CLASS_VALUE=1;
+	private final int SECOND_CLASS_VALUE=2;
+	private final int THIRD_CLASS_VALUE=3;
+>>>>>>> parent of 4feed63... Info gain for Lighting Conditions:src/CsvReader.java
 	private String csvUrl;
 	private BufferedReader reader;
 	private final String CSV_SPLIT=",";
@@ -22,14 +32,10 @@ public class DataMiner {
 			reader = new BufferedReader(new FileReader(csvUrl));
 			line = reader.readLine();
 			while((line = reader.readLine()) != null){
-				Row row = new Row();
 				String values[] = line.split(CSV_SPLIT);
-				for(int i=0; i<values.length; i++){
-					try{
-						row.updateRow(i, Integer.parseInt(values[i]));
-					}
-					catch(java.lang.NumberFormatException e){}
-				}
+				int accidentSeverity =Integer.parseInt(values[Row.getAccidentSeverityIndex()]);
+				int lightingConditions = Integer.parseInt(values[Row.getLightingConditionsIndex()]);
+				Row row = new Row(accidentSeverity, lightingConditions);
 				set.add(row);
 			}
 		}
@@ -37,6 +43,7 @@ public class DataMiner {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD:src/DataMiner.java
 		
 	// find the number of class instances in a set
 	private ArrayList<Integer> getNumClassesInstances(ArrayList<Row> set){
@@ -44,19 +51,22 @@ public class DataMiner {
 		int numSecondClassInstances = 0;
 		int numThirdClassInstances = 0;
 		Attribute attribute;
+=======
+	
+	private ArrayList<Integer> getNumClassesInstances(){
+		int numFirstClassInstances =0;
+		int numSecondClassInstances =0;
+		int numThirdClassInstances =0;
+>>>>>>> parent of 4feed63... Info gain for Lighting Conditions:src/CsvReader.java
 		for(Row row: set){
-			attribute = row.getClassAttribute();
-			int index = attribute.getCurrentValueIndex();
-			if(index != -1){
-				if(index == 0){
-					numFirstClassInstances++;
-				}
-				else if(index == 1){
-					numSecondClassInstances++;
-				}
-				else if(index == 2){
-					numThirdClassInstances++;
-				}
+			if(row.getAccidentSeverity() == FIRST_CLASS_VALUE){
+				numFirstClassInstances++;
+			}
+			else if(row.getAccidentSeverity() == SECOND_CLASS_VALUE){
+				numSecondClassInstances++;
+			}
+			else if(row.getAccidentSeverity() == THIRD_CLASS_VALUE){
+				numThirdClassInstances++;
 			}
 		}
 		ArrayList<Integer> classInstances = new ArrayList<Integer>();
@@ -65,6 +75,7 @@ public class DataMiner {
 		classInstances.add(numThirdClassInstances);
 		return classInstances;
 	}
+<<<<<<< HEAD:src/DataMiner.java
 	
 	// calculate eNew of splitting on attribute
 	public double eNew(){
@@ -89,10 +100,14 @@ public class DataMiner {
 	}
 	
 	// calculate eStart of current set
+=======
+
+>>>>>>> parent of 4feed63... Info gain for Lighting Conditions:src/CsvReader.java
 	public double eStart(){
-		ArrayList<Integer> array = getNumClassesInstances(this.set);
+		ArrayList<Integer> array = getNumClassesInstances();
 		return entropy(set.size(), array);
 	}
+<<<<<<< HEAD:src/DataMiner.java
 	
 	// takes in a set of rows
 	// returns an array of subsets split on attribute values
@@ -115,3 +130,23 @@ public class DataMiner {
 	}
 	*/
 }
+=======
+
+	private double entropy( int numInstances, ArrayList<Integer> array){
+		double e = 0.0;
+		for(int elementInstance: array){
+			e = e -elementOfE(numInstances, elementInstance);
+		}
+		return e;
+	}
+
+	private double elementOfE(int numInstances, int numClassInstances){
+			double p = (double) numClassInstances/numInstances;
+			return p * logOfBase(2, p);
+	}
+
+	private double logOfBase(int base, double num) {
+		return Math.log(num) / Math.log(base);
+	}
+}
+>>>>>>> parent of 4feed63... Info gain for Lighting Conditions:src/CsvReader.java
